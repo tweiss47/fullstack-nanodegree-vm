@@ -19,7 +19,8 @@ def GetAllPosts():
     db = psycopg2.connect(database=DBNAME)
     c = db.cursor()
     c.execute('SELECT content, time FROM posts ORDER BY time DESC')
-    posts = c.fetchall()
+    results = c.fetchall()
+    posts = [{'content': str(row[0]), 'time': str(row[1])} for row in results]
     db.close()
     return posts
 
